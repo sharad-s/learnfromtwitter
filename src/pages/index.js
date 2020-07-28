@@ -16,7 +16,7 @@ const Test = () => (
   </a>
 )
 
-const thing = tag => <Tag tag={tag} key={tag.id} />
+const thing = tag => <Tag tag={tag} key={tag.id} showNum={true} />
 
 
 export default function Home() {
