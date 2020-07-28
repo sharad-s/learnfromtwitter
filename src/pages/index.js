@@ -16,7 +16,8 @@ const Test = () => (
   </a>
 )
 
-const thing = tag => <Tag tag={tag} key={tag.id}/>
+const thing = tag => <Tag tag={tag} key={tag.id} />
+
 
 export default function Home() {
 
@@ -36,9 +37,11 @@ export default function Home() {
 
         <main className={styles.main}>
 
-          <h1 className={styles.title}>
-            Welcome to <a href="https://nextjs.org">Next.js!</a>
-          </h1>
+
+            <h1 className={styles.title}>
+             Learn anything from Twitter.
+            </h1>
+
 
           <div className={styles.grid}>
             {data.map(tag => thing(tag))}

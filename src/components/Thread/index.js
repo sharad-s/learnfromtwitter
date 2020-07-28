@@ -22,7 +22,7 @@ const Thread = ({ thread }) => {
 
 
     const { fields, id } = thread;
-    const { Author, URL, Title } = fields;
+    const { Author, URL, Title, Summary } = fields;
 
     const borderColor = colorHash.hex(Author);
 
@@ -33,7 +33,11 @@ const Thread = ({ thread }) => {
         <a href={URL} target="_blank" className={styles.card} style={{ borderColor: borderColor }}>
             <h3> {Author} </h3>
             <h4> {Title} </h4>
-            <p>Find in-depth information about Next.js features and API.</p>
+            <p>{Summary}</p>
+            <a href={URL} className={styles.link}>{URL}</a>
+            <TwitterTweetEmbed
+                tweetId={tweetId}
+            />
         </a>
 
 

@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "airtable": "^0.8.1",
+    "axios": "^0.19.2",
     "color-hash": "^1.0.3",
     "next": "9.5.0",
     "react": "16.13.1",

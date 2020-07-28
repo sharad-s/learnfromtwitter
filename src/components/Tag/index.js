@@ -14,7 +14,7 @@ const Tag = ({ tag }) => {
     const bgColor = colorHash.hex(tag.id);
 
     return (
-        <Link href={`/tags/[id]`} as={`/tags/${tag.fields.Name}`}>
+        <Link href={`/tags/[tagName]`} as={`/tags/${tag.fields.Name}`}>
             <a>
                 <div className={styles.card} style={{ background: bgColor }}>
                     <div className={styles.innerCard}>
