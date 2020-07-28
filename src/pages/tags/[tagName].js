@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import Head from 'next/head'
+
 import { useRouter } from 'next/router'
 import useSwr from 'swr'
 
@@ -15,20 +17,7 @@ const colorHash = new ColorHash();
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
-const Test = () => (
-    <a href="https://nextjs.org/docs" className={styles.card}>
-        <h3>Documentation &rarr;</h3>
-        <p>Find in-depth information about Next.js features and API.</p>
-    </a>
-)
-
-
-
-
 let thing = thread => <Thread thread={thread} key={thread.id} />
-// thing = thread => <Test />
-
-
 
 // Gets all threads under a specific Tag 
 export default function TagName() {
@@ -44,9 +33,9 @@ export default function TagName() {
     if (threadError) return <div>Failed to load threads for tag "{router.query.id}"</div>
     if (!threadData) return (
         <main className={styles.main}>
-          <div>Loading Threads...</div>
+            <div>Loading Threads...</div>
         </main>
-      )
+    )
 
     if (tagError) return <div>Failed to load tag "{router.query.id}"</div>
     if (!tagData) return (
@@ -62,6 +51,11 @@ export default function TagName() {
     return (
 
         <>
+
+            <Head>
+                <title>{router.query.tagName} | Learn From Twitter | </title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
             <div className={styles.container}>
                 {/* <Head>
