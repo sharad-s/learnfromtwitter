@@ -1,6 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 
+// Components
+import Tag from "../Tag"
+
 // Styles
 import styles from './Thread.module.css'
 
@@ -11,33 +14,60 @@ import ColorHash from 'color-hash'
 import { TwitterTweetEmbed } from 'react-twitter-embed'
 
 // API
-import useSwr from 'swr'
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 // Colors
 const colorHash = new ColorHash();
 
-const Thread = ({ thread }) => {
+const Thread = ({
+    thread:
+    { fields: {
+        Author,
+        URL,
+        Title,
+        Summary,
+        Tags },
+        id }
+}) => {
+
+    const [tags, setTags] = React.useState([])
 
 
-    const { fields, id } = thread;
-    const { Author, URL, Title, Summary, Tags } = fields;
+    // Have to query Airtable for Tag Data for each TagID >:(
+    // For each tagId in Tags, make an API request
+    React.useEffect(() => {
+        if (!!Tags) {
+            let tagsArr = []
+
+            Tags.forEach((tagId, i) => {
+                tagsArr.push(fetcher(`/api/tags/id/${tagId}`))
+            })
+
+            Promise.all(tagsArr).then(res => setTags(res))
+        }
+    }, [Tags])
 
     const borderColor = colorHash.hex(Author);
 
     const tweetId = URL.substr(URL.lastIndexOf('/') + 1)
 
-    console.log({Tags})
-    // Have to query Airtable for Tag Data for each TagID >:(
+    const renderedTags = tags.map((tag, i) => (
+        <Tag tag={tag} key={i} showNum={false} />
+    )
+    )
 
 
     return (
 
         <a href={URL} target="_blank" className={styles.card} style={{ borderColor: borderColor }}>
             <h3> {Author} </h3>
-            <h4> {Title} </h4>
+            <h4 className={styles.title}> {Title} </h4>
+            <div className={styles.tagsRow}>
+                {renderedTags}
+            </div>
             <p>{Summary}</p>
-            <a href={URL} className={styles.link}>{URL}</a>
+            <br />
+            <span href={URL} className={styles.link}>{URL}</span>
             <TwitterTweetEmbed
                 tweetId={tweetId}
             />

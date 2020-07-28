@@ -2,6 +2,22 @@
     color: #0070f3;
 }
 
+.title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.tagsRow {
+
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    justify-content: start;
+    flex-wrap: wrap;
+    /* background-color: lime; */
+    padding: none;
+}
+
 .card {
     margin: 1rem;
     padding: 1.5rem;

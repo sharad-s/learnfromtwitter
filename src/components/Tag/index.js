@@ -9,7 +9,7 @@ import ColorHash from 'color-hash'
 
 const colorHash = new ColorHash();
 
-const Tag = ({ tag }) => {
+const Tag = ({ tag, showNum }) => {
 
     const bgColor = colorHash.hex(tag.id);
 
@@ -19,7 +19,8 @@ const Tag = ({ tag }) => {
                 <div className={styles.card} style={{ background: bgColor }}>
                     <div className={styles.innerCard}>
                         {`${tag.fields.Name} `}
-                        {`(${tag.fields.Amount})`}
+
+                        {showNum && `(${tag.fields.Amount})`}
                     </div>
                 </div>
             </a>

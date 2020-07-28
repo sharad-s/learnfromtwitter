@@ -9,9 +9,13 @@
 
 .card {
     margin: 1rem;
+    margin-left: 0rem;
+    margin-top: 00rem;
+    padding: 0.7rem;
+
+
     /* flex-basis: 45%; */
     color: white;
-    padding: 1.5rem;
     text-align: left;
     text-decoration: none;
     border: 1px solid #eaeaea;

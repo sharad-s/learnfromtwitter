@@ -24,7 +24,11 @@ export default function Home() {
   const { data, error } = useSwr('/api/tags', fetcher)
 
   if (error) return <div>Failed to load tags</div>
-  if (!data) return <div>Loading...</div>
+  if (!data) return (
+    <main className={styles.main}>
+      <div>Loading...</div>
+    </main>
+  )
 
   return (
     <>
@@ -38,8 +42,8 @@ export default function Home() {
         <main className={styles.main}>
 
 
-            <h1 className={styles.title}>
-             Learn anything from Twitter.
+          <h1 className={styles.title}>
+            Learn anything from Twitter.
             </h1>
 
 

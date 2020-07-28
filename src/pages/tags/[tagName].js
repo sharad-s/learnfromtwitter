@@ -22,6 +22,9 @@ const Test = () => (
     </a>
 )
 
+
+
+
 let thing = thread => <Thread thread={thread} key={thread.id} />
 // thing = thread => <Test />
 
@@ -39,10 +42,18 @@ export default function TagName() {
     const tagError = tag.error
 
     if (threadError) return <div>Failed to load threads for tag "{router.query.id}"</div>
-    if (!threadData) return <div>Loading Threads...</div>
+    if (!threadData) return (
+        <main className={styles.main}>
+          <div>Loading Threads...</div>
+        </main>
+      )
 
     if (tagError) return <div>Failed to load tag "{router.query.id}"</div>
-    if (!tagData) return <div>Loading Tag...</div>
+    if (!tagData) return (
+        <main className={styles.main}>
+            <div>Loading Tag...</div>
+        </main>
+    )
 
     const bgColor = colorHash.hex(tagData.id);
 

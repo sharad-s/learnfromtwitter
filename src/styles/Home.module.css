@@ -39,7 +39,7 @@
   justify-content: center;
   flex-wrap: wrap;
 
-  max-width: 100%;
+  max-width: 60%;
     margin-top: 3rem;
     padding: 2rem;
   /* background-color: lime; */
@@ -83,5 +83,33 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+}
+
+
+
+/* CSS Loaders */
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #cef;
+  border-color: #cef transparent #cef transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
