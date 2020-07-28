@@ -1,0 +1,31 @@
+.link {
+    color: #0070f3;
+}
+
+.card {
+    margin: 1rem;
+    padding: 1.5rem;
+    text-align: left;
+    text-decoration: none;
+    border: 3px solid;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover, .card:focus, .card:active {
+    border-color: #0070f3;
+    -webkit-box-shadow: 10px 10px 16px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 16px -9px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 16px -9px rgba(0,0,0,0.75);
+}
+
+.card h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+}
+
+.card p {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+}
