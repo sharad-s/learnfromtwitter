@@ -4,7 +4,7 @@ import useSwr from 'swr'
 
 // Components
 import Thread from "../../components/Thread"
-import Tag from "../../components/Tag"
+// import Tag from "../../components/Tag"
 
 
 // Styles
@@ -13,9 +13,7 @@ import ColorHash from 'color-hash'
 const colorHash = new ColorHash();
 
 
-const fetcher = (url) => fetch(url).then((res) => {
-    return res.json()
-})
+const fetcher = (url) => fetch(url).then((res) => res.json())
 
 const Test = () => (
     <a href="https://nextjs.org/docs" className={styles.card}>
@@ -41,14 +39,14 @@ export default function TagName() {
     const tagError = tag.error
 
     if (threadError) return <div>Failed to load threads for tag "{router.query.id}"</div>
-    if (!threadData) return <div>Loading...</div>
+    if (!threadData) return <div>Loading Threads...</div>
 
     if (tagError) return <div>Failed to load tag "{router.query.id}"</div>
-    if (!tagData) return <div>Loading...</div>
-
+    if (!tagData) return <div>Loading Tag...</div>
 
     const bgColor = colorHash.hex(tagData.id);
-    const renderedTag = router.query.tagName
+
+    const renderedTag = !!tagData.fields.Name ? tagData.fields.Name : router.query.id
 
     return (
 

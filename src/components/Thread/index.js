@@ -7,26 +7,29 @@ import styles from './Thread.module.css'
 // Colors
 import ColorHash from 'color-hash'
 
+// Twitter
 import { TwitterTweetEmbed } from 'react-twitter-embed'
 
-const colorHash = new ColorHash();
+// API
+import useSwr from 'swr'
+const fetcher = (url) => fetch(url).then((res) => res.json())
 
-const Test = () => (
-    <a href="https://nextjs.org/docs" className={styles.card}>
-        <h3>Documentation &rarr;</h3>
-        <p>Find in-depth information about Next.js features and API.</p>
-    </a>
-)
+// Colors
+const colorHash = new ColorHash();
 
 const Thread = ({ thread }) => {
 
 
     const { fields, id } = thread;
-    const { Author, URL, Title, Summary } = fields;
+    const { Author, URL, Title, Summary, Tags } = fields;
 
     const borderColor = colorHash.hex(Author);
 
     const tweetId = URL.substr(URL.lastIndexOf('/') + 1)
+
+    console.log({Tags})
+    // Have to query Airtable for Tag Data for each TagID >:(
+
 
     return (
 
