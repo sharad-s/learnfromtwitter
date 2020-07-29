@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Tag from "../Tag"
 
 // Styles
-import styles from './thread.module.css'
+import styles from './Thread.module.css'
 
 // Colors
 import ColorHash from 'color-hash'

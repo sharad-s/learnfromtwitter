@@ -12,7 +12,6 @@ export default (req, res) => {
 
     makeRequest({ url }).then(({ data }) => {
         // const { records } = data
-        console.log({ data })
 
         res.statusCode = 200
         res.json(data)
