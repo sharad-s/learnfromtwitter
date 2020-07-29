@@ -5,13 +5,16 @@ import Link from 'next/link'
 import Tag from "../Tag"
 
 // Styles
-import styles from './Thread.module.css'
+import styles from './thread.module.css'
 
 // Colors
 import ColorHash from 'color-hash'
 
 // Twitter
 import { TwitterTweetEmbed } from 'react-twitter-embed'
+
+// Mixpanel
+import { clickedThread } from "../../utils/mixpanel"
 
 // API
 const fetcher = (url) => fetch(url).then((res) => res.json())
@@ -56,10 +59,16 @@ const Thread = ({
     )
     )
 
+    const handleClick = () => {
+        // console.log('clicked thread:', { Author, Title, URL, id })
+        // clickedThread({ Author, Title, URL, id })
+    }
+
+
 
     return (
 
-        <a href={URL} target="_blank" className={styles.card} style={{ borderColor: borderColor }}>
+        <a href={URL} target="_blank" className={styles.card} style={{ borderColor: borderColor }} onClick={handleClick}>
             <h3> {Author} </h3>
             <h4 className={styles.title}> {Title} </h4>
             <div className={styles.tagsRow}>

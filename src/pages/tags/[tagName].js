@@ -8,11 +8,14 @@ import useSwr from 'swr'
 import Thread from "../../components/Thread"
 // import Tag from "../../components/Tag"
 
-
 // Styles
 import styles from '../../styles/Threads.module.css'
 import ColorHash from 'color-hash'
 const colorHash = new ColorHash();
+
+// Mixpanel
+import { loadedTagPage as trackTagPageLoad } from "../../utils/mixpanel"
+
 
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
@@ -24,6 +27,11 @@ export default function TagName() {
     const router = useRouter()
     const threads = useSwr(`/api/threads/${router.query.tagName}`, fetcher)
     const tag = useSwr(`/api/tags/${router.query.tagName}`, fetcher)
+
+    React.useEffect(() => {
+        console.log("loaded page for tag:", router.query.tagName)
+        trackTagPageLoad(router.query.tagName)
+    }, [])
 
     const threadData = threads.data
     const threadError = threads.error
