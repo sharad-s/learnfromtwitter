@@ -12,23 +12,29 @@ import { clickedTag } from "../../utils/mixpanel"
 
 const colorHash = new ColorHash();
 
-const Tag = ({ tag, showNum }) => {
+const Tag = ({ tag, showNum = false }) => {
 
-    const bgColor = colorHash.hex(tag.id);
+    const { 
+        name,
+        id,
+        count
+    } = tag
+
+    const bgColor = colorHash.hex(id);
 
     const handleClick = () => {
-        console.log('clicked tag:', tag.fields.Name)
-        clickedTag(tag.fields.Name)
+        console.log('clicked tag:', name)
+        clickedTag(name)
     }
 
     return (
-        <Link href={`/tags/[tagName]`} as={`/tags/${tag.fields.Name}`}>
+        <Link href={`/tags/[tagName]`} as={`/tags/${name}`}>
             <a onClick={handleClick}>
                 <div className={styles.card} style={{ background: bgColor }}>
                     <div className={styles.innerCard}>
-                        {`${tag.fields.Name} `}
+                        {`${name} `}
 
-                        {showNum && `(${tag.fields.Amount})`}
+                        {showNum && count && `(${count})`}
                     </div>
                 </div>
             </a>

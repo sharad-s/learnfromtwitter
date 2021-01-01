@@ -1,0 +1,19 @@
+query GetThreadsByTagName($tagName: String!) {
+  threads_aggregate(where: {thread_tags: {tag: {name: {_eq: $tagName}}}}) {
+    aggregate {
+      count
+    }
+    nodes {
+      id
+      url
+      title
+      author
+      thread_tags {
+        tag {
+          name
+          id
+        }
+      }
+    }
+  }
+}

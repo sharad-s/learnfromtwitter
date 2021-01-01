@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import Head from 'next/head'
-
 import { useRouter } from 'next/router'
-import useSwr from 'swr'
+
+// GQL
+import { useQuery } from "@apollo/client"
+import { GET_THREADS_BY_TAG } from "gql/queries"
 
 // Components
 import Thread from "../../components/Thread"
-// import Tag from "../../components/Tag"
 
 // Styles
 import styles from '../../styles/Threads.module.css'
@@ -17,49 +18,42 @@ const colorHash = new ColorHash();
 import { loadedTagPage as trackTagPageLoad } from "../../utils/mixpanel"
 
 
-
-const fetcher = (url) => fetch(url).then((res) => res.json())
-
 let thing = thread => <Thread thread={thread} key={thread.id} />
 
 // Gets all threads under a specific Tag 
 export default function TagName() {
     const router = useRouter()
-    const threads = useSwr(`/api/threads/${router.query.tagName}`, fetcher)
-    const tag = useSwr(`/api/tags/${router.query.tagName}`, fetcher)
+    const { tagName } = router.query
+
+    const { data, error, loading } = useQuery(GET_THREADS_BY_TAG, { variables: { tagName } })
 
     React.useEffect(() => {
         console.log("loaded page for tag:", router.query.tagName)
         trackTagPageLoad(router.query.tagName)
     }, [])
 
-    const threadData = threads.data
-    const threadError = threads.error
-    const tagData = tag.data
-    const tagError = tag.error
-
-    if (threadError) return <div>Failed to load threads for tag "{router.query.id}"</div>
-    if (!threadData) return (
+    if (error) return <div>Failed to load threads for tag "{router.query.id}"</div>
+    if (loading) return (
         <main className={styles.main}>
             <div>Loading Threads...</div>
         </main>
     )
 
-    if (tagError) return <div>Failed to load tag "{router.query.id}"</div>
-    if (!tagData) return (
-        <main className={styles.main}>
-            <div>Loading Tag...</div>
-        </main>
-    )
+    const count = data.threads_aggregate.aggregate.count
 
-    const bgColor = colorHash.hex(tagData.id);
+    const threads = data.threads_aggregate.nodes.map(t => ({
+        id: t.id,
+        url: t.url,
+        author: t.author,
+        title: t.title,
+        tags: t.thread_tags.map(({ tag }) => ({ id: tag.id, name: tag.name }))
+    }))
 
-    const renderedTag = !!tagData.fields.Name ? tagData.fields.Name : router.query.id
+    console.log({ count, threads })
 
     return (
 
         <>
-
             <Head>
                 <title>{router.query.tagName} | Learn From Twitter | </title>
                 <link rel="icon" href="/favicon.ico" />
@@ -74,7 +68,7 @@ export default function TagName() {
                 <main className={styles.main}>
 
                     <h1 className={styles.title}>
-                        Threads about <span style={{ color: bgColor }}>{renderedTag}</span>
+                        Threads about <span style={{ color: colorHash.hex(tagName) }}>{tagName} ({count})</span>
                     </h1>
 
                     <h2 className={styles.goBack}>
@@ -84,7 +78,7 @@ export default function TagName() {
                     </h2>
 
                     <div className={styles.grid}>
-                        {threadData.map(thread => thing(thread))}
+                        {threads.map(t => <Thread thread={t} />)}
                     </div>
 
                 </main>

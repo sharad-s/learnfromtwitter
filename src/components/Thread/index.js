@@ -17,45 +17,29 @@ import { TwitterTweetEmbed } from 'react-twitter-embed'
 import { clickedThread } from "../../utils/mixpanel"
 
 // API
-const fetcher = (url) => fetch(url).then((res) => res.json())
 
 // Colors
 const colorHash = new ColorHash();
 
-const Thread = ({
-    thread:
-    { fields: {
-        Author,
-        URL,
-        Title,
-        Summary,
-        Tags },
-        id }
-}) => {
+const Thread = ({thread}) => {
 
-    const [tags, setTags] = React.useState([])
+    const {
+        id,
+        url,
+        title,
+        author,
+        description,
+        tags
+    } = thread
 
+    console.log({url})
 
-    // Have to query Airtable for Tag Data for each TagID >:(
-    // For each tagId in Tags, make an API request
-    React.useEffect(() => {
-        if (!!Tags) {
-            let tagsArr = []
+    const borderColor = colorHash.hex(author);
 
-            Tags.forEach((tagId, i) => {
-                tagsArr.push(fetcher(`/api/tags/id/${tagId}`))
-            })
+    const tweetId = url.substr(url.lastIndexOf('/') + 1)
 
-            Promise.all(tagsArr).then(res => setTags(res))
-        }
-    }, [Tags])
-
-    const borderColor = colorHash.hex(Author);
-
-    const tweetId = URL.substr(URL.lastIndexOf('/') + 1)
-
-    const renderedTags = tags.map((tag, i) => (
-        <Tag tag={tag} key={i} showNum={false} />
+    const renderedTags = tags.map((tag) => (
+        <Tag tag={tag} key={tag.id} />
     )
     )
 
@@ -68,13 +52,13 @@ const Thread = ({
 
     return (
 
-        <a href={URL} target="_blank" className={styles.card} style={{ borderColor: borderColor }} onClick={handleClick}>
-            <h3> {Author} </h3>
-            <h4 className={styles.title}> {Title} </h4>
+        <a href={url} target="_blank" className={styles.card} style={{ borderColor: borderColor }} onClick={handleClick}>
+            <h3> {author} </h3>
+            <h4 className={styles.title}> {title} </h4>
             <div className={styles.tagsRow}>
                 {renderedTags}
             </div>
-            <p>{Summary}</p>
+            <p>{description}</p>
             <br />
             <span href={URL} className={styles.link}>{URL}</span>
             <TwitterTweetEmbed

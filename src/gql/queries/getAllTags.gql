@@ -1,0 +1,11 @@
+query GetAllTags {
+  tags(order_by: {tag_threads_aggregate: {count: desc}}) {
+    id
+    name
+    tag_threads_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}
