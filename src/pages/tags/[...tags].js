@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 // GQL
 import { useQuery } from "@apollo/client"
-import { GET_THREADS_BY_TAG } from "gql/queries"
+import { GET_THREADS_BY_TAGS } from "gql/queries"
 
 // Components
 import Thread from "components/Thread"
@@ -15,28 +15,31 @@ import ColorHash from 'color-hash'
 const colorHash = new ColorHash();
 
 // Mixpanel
-import { loadedTagPage as trackTagPageLoad } from "../../utils/mixpanel"
+import { loadedTagPage as trackTagPageLoad } from "utils/mixpanel"
 
 
 // Gets all threads under a specific Tag 
-export default function TagName() {
+export default function TagNames() {
     const router = useRouter()
-    const { tagName } = router.query
+    const { tags } = router.query
+    console.log(tags)
 
-    const { data, error, loading } = useQuery(GET_THREADS_BY_TAG, { variables: { tagName } })
+    const { data, error, loading } = useQuery(GET_THREADS_BY_TAGS, { variables: { tagNames: tags } })
 
     React.useEffect(() => {
         console.log("loaded page for tag:", router.query.tagName)
         trackTagPageLoad(router.query.tagName)
     }, [])
 
-    if (error) return <div>Failed to load threads for tag "{router.query.id}"</div>
+    if (error) return <div>Failed to load threads for tags</div>
     if (loading) return (
         <main className={styles.main}>
             <div>Loading Threads...</div>
         </main>
     )
 
+
+    
     const count = data.threads_aggregate.aggregate.count
 
     const threads = data.threads_aggregate.nodes.map(t => ({
@@ -47,36 +50,31 @@ export default function TagName() {
         tags: t.thread_tags.map(({ tag }) => ({ id: tag.id, name: tag.name }))
     }))
 
-    console.log({ count, threads })
+    console.log({ count, threads, data })
 
     return (
 
         <>
             <Head>
-                <title>{router.query.tagName} | Learn From Twitter | </title>
-                <link rel="icon" href="/favicon.ico" />
+                <title> Learn From Twitter </title>
             </Head>
 
             <div className={styles.container}>
-                {/* <Head>
-                    <title>Tag | {router.query.id}</title>
-                    <link rel="icon" href="/favicon.ico" />
-                </Head> */}
 
                 <main className={styles.main}>
 
-                    <h1 className={styles.title}>
+                    {/* <h1 className={styles.title}>
                         Threads about <span style={{ color: colorHash.hex(tagName) }}>{tagName} ({count})</span>
-                    </h1>
+                    </h1> */}
 
                     <h2 className={styles.goBack}>
-                        <Link href="/">
+                        <Link href="/" passHref>
                             <a> Go Back </a>
                         </Link>
                     </h2>
 
                     <div className={styles.grid}>
-                        {threads.map(t => <Thread thread={t} />)}
+                        {threads.map(t => <Thread thread={t} key={t.id} />)}
                     </div>
 
                 </main>

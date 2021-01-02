@@ -60,7 +60,6 @@ const Thread = ({thread}) => {
             </div>
             <p>{description}</p>
             <br />
-            <span href={URL} className={styles.link}>{URL}</span>
             <TwitterTweetEmbed
                 tweetId={tweetId}
             />

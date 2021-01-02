@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.6",
+    "@theme-ui/color": "^0.3.5",
     "airtable": "^0.8.1",
     "axios": "^0.19.2",
     "color-hash": "^1.0.3",

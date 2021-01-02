@@ -28,8 +28,8 @@ const Tag = ({ tag, showNum = false }) => {
     }
 
     return (
-        <Link href={`/tags/[tagName]`} as={`/tags/${name}`}>
-            <a onClick={handleClick}>
+        <Link href={`/tags/[tagName]`} as={`/tags/${name}`} passHref>
+            <div onClick={handleClick}>
                 <div className={styles.card} style={{ background: bgColor }}>
                     <div className={styles.innerCard}>
                         {`${name} `}
@@ -37,7 +37,7 @@ const Tag = ({ tag, showNum = false }) => {
                         {showNum && count && `(${count})`}
                     </div>
                 </div>
-            </a>
+            </div>
         </Link>
 
     )
