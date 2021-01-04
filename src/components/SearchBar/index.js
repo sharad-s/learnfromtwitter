@@ -95,6 +95,7 @@ const SearchBar = ({ showButton, setParentTags }) => {
                 onInput={onInput}
                 onValidate={onValidate}
                 suggestionsFilter={suggestionsFilter}
+                placeholderText="Search Tags"
             />
             {showButton && (<button >
                 Go
