@@ -7,6 +7,8 @@ import { SEARCH_TAGS } from "gql/queries"
 
 import ReactTags from 'react-tag-autocomplete'
 
+var x = 3;
+
 const SearchBar = ({ showButton, setParentTags }) => {
 
     const [tags, setTags] = useState([])
@@ -17,6 +19,7 @@ const SearchBar = ({ showButton, setParentTags }) => {
     const [matchedTags, setMatchedTags] = useState([])
 
     const [performSearch, { loading, error, data }] = useLazyQuery(SEARCH_TAGS)
+
 
     useEffect(() => {
         if (data && data.search_tags.length) {
@@ -42,8 +45,8 @@ const SearchBar = ({ showButton, setParentTags }) => {
     }
 
     const onDelete = (i) => {
-        const tags = tags.slice(0)
         tags.splice(i, 1)
+
         setTags(tags)
     }
 
@@ -52,6 +55,7 @@ const SearchBar = ({ showButton, setParentTags }) => {
         const newTags = [...tags, tag]
         console.log({ oldTags, newTags })
         setTags(newTags)
+        x = 4;
     }
 
     const onValidate = (tag) => {
@@ -72,14 +76,12 @@ const SearchBar = ({ showButton, setParentTags }) => {
     }
 
     const suggestions = matchedTags.map(({ id, name }) => ({ id, name }))
-    console.log({ suggestions, tags })
 
     const handleSubmit = (e) => {
         alert('form submit')
     }
 
     const link = '/tags/' + tags.map(({ name }) => name).join('/')
-    console.log({ link })
 
     return (
         <>
