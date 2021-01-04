@@ -14,10 +14,12 @@
     "axios": "^0.19.2",
     "color-hash": "^1.0.3",
     "graphql": "^15.4.0",
+    "graphql-tag": "^2.11.0",
     "mixpanel-browser": "^2.38.0",
     "next": "9.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-tag-autocomplete": "^6.1.0",
     "react-twitter-embed": "^3.0.3",
     "swr": "^0.2.3"
   }

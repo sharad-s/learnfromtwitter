@@ -57,7 +57,7 @@ export default function Home() {
           <div className={styles.grid}>
             {tags.map(tag => thing(tag))}
           </div>
-
+    
         </main>
 
       </div>
