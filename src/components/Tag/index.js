@@ -20,7 +20,7 @@ const Tag = ({ tag, showNum = false }) => {
         count
     } = tag
 
-    const bgColor = colorHash.hex(id);
+    const bgColor = colorHash.hex(name);
 
     const handleClick = () => {
         console.log('clicked tag:', name)

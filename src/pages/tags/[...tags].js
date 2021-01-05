@@ -50,8 +50,6 @@ export default function TagNames() {
         tags: t.thread_tags.map(({ tag }) => ({ id: tag.id, name: tag.name }))
     }))
 
-    console.log({ count, threads, data })
-
     return (
 
         <>

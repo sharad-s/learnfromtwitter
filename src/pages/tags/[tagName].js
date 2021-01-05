@@ -47,7 +47,8 @@ export default function TagName() {
         tags: t.thread_tags.map(({ tag }) => ({ id: tag.id, name: tag.name }))
     }))
 
-    console.log({ count, threads })
+    const color = colorHash.hex(tagName)
+    console.log('header color', {color})
 
     return (
 
@@ -66,7 +67,7 @@ export default function TagName() {
                 <main className={styles.main}>
 
                     <h1 className={styles.title}>
-                        Threads about <span style={{ color: colorHash.hex(tagName) }}>{tagName} ({count})</span>
+                        Threads about <span style={{ color }}>{tagName} ({count})</span>
                     </h1>
 
                     <h2 className={styles.goBack}>

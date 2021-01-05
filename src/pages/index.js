@@ -53,7 +53,7 @@ export default function Home() {
             </h1>
 
 
-          <SearchBar />
+          {/* <SearchBar /> */}
           <div className={styles.grid}>
             {tags.map(tag => thing(tag))}
           </div>

@@ -32,8 +32,6 @@ const Thread = ({thread}) => {
         tags
     } = thread
 
-    console.log({url})
-
     const borderColor = colorHash.hex(author);
 
     const tweetId = url.substr(url.lastIndexOf('/') + 1)
