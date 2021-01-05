@@ -18,7 +18,7 @@
     "graphql-tag": "^2.11.0",
     "joi": "^17.3.0",
     "mixpanel-browser": "^2.38.0",
-    "next": "9.5.0",
+    "next": "9.5.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-tag-autocomplete": "^6.1.0",
