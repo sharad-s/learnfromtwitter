@@ -25,7 +25,7 @@ const Thread = ({thread}) => {
 
     const {
         id,
-        url,
+        tweet_id,
         title,
         author,
         description,
@@ -34,12 +34,9 @@ const Thread = ({thread}) => {
 
     const borderColor = colorHash.hex(author);
 
-    const tweetId = url.substr(url.lastIndexOf('/') + 1)
+    const renderedTags = tags.map(tag =>  <Tag tag={tag} key={tag.id} /> )
 
-    const renderedTags = tags.map((tag) => (
-        <Tag tag={tag} key={tag.id} />
-    )
-    )
+    const url = `https://twitter.com/${author}/status/${tweet_id}`
 
     const handleClick = () => {
         // console.log('clicked thread:', { Author, Title, URL, id })
@@ -47,6 +44,7 @@ const Thread = ({thread}) => {
     }
 
 
+    console.log({url, tweet_id})
 
     return (
 
@@ -59,7 +57,7 @@ const Thread = ({thread}) => {
             <p>{description}</p>
             <br />
             <TwitterTweetEmbed
-                tweetId={tweetId}
+                tweetId={tweet_id}
             />
         </a>
 

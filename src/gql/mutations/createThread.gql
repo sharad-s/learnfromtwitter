@@ -1,8 +1,8 @@
 
-mutation CreateThreadWithTags ($url: String!, $author: String!, $title: String!, $description: String, $thread_tags: thread_tag_arr_rel_insert_input!) {
+mutation CreateThreadWithTags ($tweet_id: String!, $author: String!, $title: String!, $description: String, $thread_tags: thread_tag_arr_rel_insert_input!) {
     insert_threads(objects: [
       {
-        url: $url,
+        tweet_id: $tweet_id,
         author: $author,
         title: $title,
         description: $description,
@@ -12,7 +12,7 @@ mutation CreateThreadWithTags ($url: String!, $author: String!, $title: String!,
       returning {
         id,
         author,
-        url,
+        tweet_id,
         title,
         description,
         created_at,

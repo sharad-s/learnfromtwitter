@@ -8,9 +8,8 @@ import { CREATE_THREAD } from 'gql/mutations'
 import errorTransformer from 'utils/errorTransformer'
 import Joi from "joi";
 
-const formatTags = tagStrings => {
-  const ret = {}
-  ret.data = tagStrings.map(t => ({
+const formatTags = tagStrings => ({
+  data: tagStrings.map(t => ({
     tag: {
       data: {
         name: t
@@ -21,10 +20,7 @@ const formatTags = tagStrings => {
       }
     }
   }))
-
-  return ret
-
-}
+})
 
 
 export default async (req, res) => {
@@ -34,7 +30,6 @@ export default async (req, res) => {
   else if (req.method === "POST") {
     try {
 
-
       // Validating request params
       const { errors, error } = validateInput(req.body)
       if (errors) return res.status(404).json(errorTransformer(errors))
@@ -42,7 +37,7 @@ export default async (req, res) => {
 
       // Construct query 
       const variables = {
-        url: req.body.url,
+        tweet_id: req.body.tweetId,
         author: req.body.author,
         title: req.body.title,
         description: req.body.description,
@@ -71,9 +66,9 @@ export default async (req, res) => {
 
 const validateInput = (threadData) => {
   const schema = Joi.object({
-    url: Joi.string()
+    tweetId: Joi.string()
       .min(5)
-      .max(100)
+      .max(25)
       .required(),
     author: Joi.string()
       .min(1)

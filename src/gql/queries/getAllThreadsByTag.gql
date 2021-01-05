@@ -5,9 +5,9 @@ query GetThreadsByTagName($tagName: String!) {
     }
     nodes {
       id
-      url
       title
       author
+      tweet_id
       thread_tags {
         tag {
           name

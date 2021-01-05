@@ -26,9 +26,11 @@ export default function TagName() {
     const { data, error, loading } = useQuery(GET_THREADS_BY_TAG, { variables: { tagName } })
 
     React.useEffect(() => {
-        console.log("loaded page for tag:", router.query.tagName)
-        trackTagPageLoad(router.query.tagName)
-    }, [])
+        if (tagName) {
+            console.log("loaded page for tag:", tagName)
+            trackTagPageLoad(tagName)
+        }
+    }, [tagName])
 
     if (error) return <div>Failed to load threads for tag "{router.query.id}"</div>
     if (loading) return (
@@ -41,14 +43,14 @@ export default function TagName() {
 
     const threads = data.threads_aggregate.nodes.map(t => ({
         id: t.id,
-        url: t.url,
+        tweet_id: t.tweet_id,
         author: t.author,
         title: t.title,
         tags: t.thread_tags.map(({ tag }) => ({ id: tag.id, name: tag.name }))
     }))
 
     const color = colorHash.hex(tagName)
-    console.log('header color', {color})
+    console.log('header color', { color })
 
     return (
 
