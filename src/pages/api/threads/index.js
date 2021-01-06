@@ -30,10 +30,13 @@ export default async (req, res) => {
   else if (req.method === "POST") {
     try {
 
+      console.log({ reqBody: req.body })
+
       // Validating request params
       const { errors, error } = validateInput(req.body)
       if (errors) return res.status(404).json(errorTransformer(errors))
       if (error) return res.status(404).json(errorTransformer(error))
+
 
       // Construct query 
       const variables = {
@@ -85,6 +88,7 @@ const validateInput = (threadData) => {
     tags: Joi
       .array()
       .items(Joi.string())
+      .required()
   })
   return schema.validate(threadData, { abortEarly: false });
 };
